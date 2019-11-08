@@ -1,4 +1,3 @@
-
 """
 Copyright (c) 2019 Valentin B.
 A simple music bot written in discord.py using youtube-dl.
@@ -22,6 +21,8 @@ from async_timeout import timeout
 from discord.ext import commands
 
 # Silence useless bug reports messages
+from discord.ext.commands import bot
+
 youtube_dl.utils.bug_reports_message = lambda: ''
 
 
@@ -465,6 +466,60 @@ class Music(commands.Cog):
         ctx.voice_state.loop = not ctx.voice_state.loop
         await ctx.message.add_reaction('✅')
 
+    ################################################################
+    @commands.command(name='test')
+    async def _test(self, ctx: commands.Context):
+        await ctx.send("yo")
+
+    @commands.command(name='dm')
+    async def _dm(self, ctx: commands.Context):
+        await ctx.send('aidans experimental bot')
+
+    @commands.command(name='8ball')
+    async def _8ball(self, ctx: commands.Context, *, question):
+        responses = ["It is certain.",
+                     "It is decidedly so.",
+                     "Without a doubt.",
+                     "Yes - definitely.",
+                     "You may rely on it.",
+                     "As I see it, yes.",
+                     "Most likely.",
+                     "Outlook good.",
+                     "Yes.",
+                     "Signs point to yes.",
+                     "Reply hazy, try again.",
+                     "Ask again later.",
+                     "Better not tell you now.",
+                     "Cannot predict now.",
+                     "Concentrate and ask again.",
+                     "Don't count on it.",
+                     "My reply is no.",
+                     "My sources say no.",
+                     "Outlook not so good.",
+                     "Very doubtful."]
+        await ctx.send(f' Question: {question}\nAnswer: {random.choice(responses)}')
+
+    @commands.command(name='ping')
+    async def _ping(self, ctx: commands.Context):
+        await ctx.author.send(f'Pong! {round(self.latency * 100)}ms')
+
+    @commands.command(name='clear')
+    @commands.has_permissions(manage_guild=True)
+    async def _clear(self, ctx: commands.Context, amount=2):
+        await ctx.channel.purge(limit=amount)
+        await ctx.author.send('「KILLER QUEEN」 DAISAN NO BAKUDAN「BITES ZA DUSTO」')
+
+    @commands.command(name='kick')
+    @commands.has_permissions(manage_guild=True)
+    async def _kick(self, member: discord.Member, *, reason=None):
+        await member.kick(reason=reason)
+
+    @commands.command(name='ban')
+    @commands.has_permissions(manage_guild=True)
+    async def _ban(self, member: discord.Member, *, reason=None):
+        await member.ban(reason=reason)
+
+    ################################################################
     @commands.command(name='play')
     async def _play(self, ctx: commands.Context, *, search: str):
         """Plays a song.
@@ -499,7 +554,7 @@ class Music(commands.Cog):
                 raise commands.CommandError('Bot is already in a voice channel.')
 
 
-bot = commands.Bot('music.', description='Yet another music bot.')
+bot = commands.Bot('a!', description='Yet another music bot.')
 bot.add_cog(Music(bot))
 
 
@@ -508,6 +563,4 @@ async def on_ready():
     print('Logged in as:\n{0.user.name}\n{0.user.id}'.format(bot))
 
 
-bot.run('NjQyMjcwNzMwNDczNDM5MjMy.XcUwfQ.aq9U1gHEJy_LLP2XnFjsKv6qr08')
-
-
+bot.run('NjQyMjcwNzMwNDczNDM5MjMy.XcV2_g.2ZD7_4z2bnwqxAaCt6xp2-jmdQo')
