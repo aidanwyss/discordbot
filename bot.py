@@ -1,4 +1,4 @@
-import discord
+import discord, time
 import asyncio
 import random
 import youtube_dl
@@ -10,12 +10,8 @@ from discord.voice_client import VoiceClient
 from discord.ext import commands, tasks
 
 client = commands.Bot(command_prefix = 'a!')
-id = client.get_guild(500898508493029386)
 
 players = {}
-
-#hey :)
-#hehehe
 
 @client.event
 async def on_ready():
@@ -34,7 +30,7 @@ async def on_member_join(message):
 @client.event
 async def on_member_remove(message):
     channel = client.get_channel(566212554095853582)
-    await channel.send('later bitch')
+    await channel.send('later')
     
 @client.command()
 async def test(message):
@@ -86,16 +82,33 @@ async def leave(ctx):
 
 @client.command(pass_context=True)
 async def play(ctx, url):
-    guild = ctx.message.guild
-    voice_client = guild.voice_client
-    player = await voice_client.create_ytdl_player(url)
-    player[guild.id] = player
+    
+    author = ctx.message.author
+    voice_channel = author.channel
+    vc = await client.join_voice_channel(voice_channel)
+    
+    player = await vc.create_ytdl_player(url)
     player.start()
 
+#^^ AttributeError: 'Member' object has no attribute 'voice_channel' ^^
+#   Member' object has no attribute 'channel'
+
+
+#@client.command(pass_context=True)
+#async def play(ctx, url):
+#    guild = ctx.message.guild
+#    voice_client = guild.voice_client
+#    player = await voice_client.create_ytdl_player(url)
+#    player[guild.id] = player
+#    player.start()
+
+#^^ AttributeError: 'VoiceClient' object has no attribute 'create_ytdl_player' ^^
+
+@client.command()
 @commands.has_role('Admins')
 async def clear(ctx, amount=2):
     await ctx.channel.purge(limit=amount)
-    await ctx.author.send('KILLER QUEEN」 DAISAN NO BAKUDAN「BITES ZA DUSTO」')
+    await ctx.author.send('「KILLER QUEEN」 DAISAN NO BAKUDAN「BITES ZA DUSTO」')
 
 @client.command()
 @commands.has_role('Admins') 
@@ -107,5 +120,4 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
 
-client.run('NjQxOTczMDk4NDg0MjAzNTYw.XcUTwA.Fs-ic_6mkV9P2DC-AZ8UVbP7Hao')
-
+client.run('NjQxOTczMDk4NDg0MjAzNTYw.XcUWHA.DzTia1zzRQSgR0mE6lcJXL4QCcI')
