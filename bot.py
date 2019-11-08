@@ -501,7 +501,7 @@ class Music(commands.Cog):
 
     @commands.command(name='ping')
     async def _ping(self, ctx: commands.Context):
-        await ctx.author.send(f'Pong! {round(self.latency * 100)}ms')
+        await ctx.author.send(f'Pong! {round(bot.latency * 100)}ms')
 
     @commands.command(name='clear')
     @commands.has_permissions(manage_guild=True)
@@ -563,4 +563,4 @@ async def on_ready():
     print('Logged in as:\n{0.user.name}\n{0.user.id}'.format(bot))
 
 
-bot.run('NjQyMjcwNzMwNDczNDM5MjMy.XcV2_g.2ZD7_4z2bnwqxAaCt6xp2-jmdQo')
+bot.run('NjQyMjcwNzMwNDczNDM5MjMy.XcWCGw.LrGt3omqEhJ7VkbskpiXq1nFu7s')
