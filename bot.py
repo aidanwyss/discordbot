@@ -14,6 +14,8 @@ id = client.get_guild(500898508493029386)
 
 players = {}
 
+#hey :)
+
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=discord.Game('with them balls like its fifa'))
