@@ -104,5 +104,5 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
 
-client.run('NjQxOTczMDk4NDg0MjAzNTYw.XcQXWQ.TRcwOveM1PnjbUo-LHFCFoQK-E8')
+client.run('NjQxOTczMDk4NDg0MjAzNTYw.XcUTwA.Fs-ic_6mkV9P2DC-AZ8UVbP7Hao')
 
