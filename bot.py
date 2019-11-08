@@ -15,6 +15,7 @@ id = client.get_guild(500898508493029386)
 players = {}
 
 #hey :)
+#hehehe
 
 @client.event
 async def on_ready():
